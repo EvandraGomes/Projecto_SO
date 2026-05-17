@@ -1,0 +1,45 @@
+==============================================================================
+                        MANUAL DE INSTRUCOES: mv
+==============================================================================
+
+NOME
+    mv - Move ou renomeia um ficheiro.
+
+SINOPSE
+    mv [OPCOES] ORIGEM DESTINO
+
+DESCRICAO
+    Renomeia ou move ORIGEM para DESTINO. A estrategia interna e':
+
+      1. Tenta rename() - rapido e atomico se ambos estiverem no mesmo
+         sistema de ficheiros.
+      2. Se falhar com EXDEV (cross-filesystem), faz copia byte-a-byte
+         seguida de remocao da origem.
+
+    Se DESTINO ja existir, o comportamento depende da opcao -i (ver abaixo).
+
+OPCOES
+    -i      Modo interativo: se DESTINO ja existir, pergunta confirmacao
+            antes de sobrescrever. Sem esta opcao, sobrescreve silenciosa-
+            mente (comportamento standard do mv).
+
+    -h      Mostra esta ajuda e termina com codigo 0.
+
+EXEMPLOS
+    mv velho.txt novo.txt
+        Renomeia velho.txt para novo.txt.
+
+    mv ficheiro.txt outra_pasta/
+        Move ficheiro.txt para outra_pasta/, mantendo o nome.
+
+    mv -i a.txt b.txt
+        Se b.txt existir, pergunta antes de sobrescrever.
+
+VALOR DE RETORNO
+    0    Sucesso (ou utilizador disse 'nao' em modo interativo).
+    1    Erro: origem inexistente, sem permissoes, ou outro problema.
+
+NOTAS
+    Implementacao academica - Sistemas Operativos, IADE 2025/2026.
+    O caso cross-filesystem (EXDEV) e' tratado fazendo copia + remocao,
+    tal como o mv real do Linux.

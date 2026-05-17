@@ -1,0 +1,49 @@
+==============================================================================
+                       MANUAL DE INSTRUCOES: head
+==============================================================================
+
+NOME
+    head - Lista as primeiras linhas de um ficheiro de texto.
+
+SINOPSE
+    head [OPCOES] [FICHEIRO]...
+
+DESCRICAO
+    Le um ou mais ficheiros de texto e imprime para o stdout as primeiras
+    linhas de cada um. Por defeito, mostra as primeiras 10 linhas.
+
+    Quando recebe mais que um ficheiro, cada um e' precedido de um cabecalho
+    "==> nome <==" para separar visualmente os outputs.
+
+OPCOES
+    -NUM    Onde NUM e' um inteiro positivo. Mostra as primeiras NUM linhas
+            em vez das 10 default. Exemplo: head -5 ficheiro.txt
+
+    -n      Prefixa cada linha impressa com o seu numero (1, 2, 3, ...),
+            seguido de dois espacos.
+
+    -E      Marca o fim de cada linha com o caracter '$' antes do newline.
+            Util para detectar espacos invisiveis no fim das linhas.
+
+    -h      Mostra esta ajuda e termina com codigo 0.
+
+EXEMPLOS
+    head ficheiro.txt
+        Mostra as primeiras 10 linhas.
+
+    head -5 ficheiro.txt
+        Mostra as primeiras 5 linhas.
+
+    head -3 -n -E ficheiro.txt
+        Mostra as primeiras 3 linhas, numeradas e com '$' no fim.
+
+    head -3 file1.txt file2.txt
+        Mostra as primeiras 3 linhas de cada ficheiro, separados por
+        cabecalhos.
+
+VALOR DE RETORNO
+    0    Sucesso.
+    1    Erro: ficheiro inexistente, opcao desconhecida, ou faltam argumentos.
+
+NOTAS
+    Implementacao academica - Sistemas Operativos, IADE 2025/2026.

@@ -1,4 +1,4 @@
-#include "../include/utilitarios_comums.h"
+#include "../include/utilitarios_comuns.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

@@ -1,0 +1,56 @@
+==============================================================================
+                        MANUAL DE INSTRUCOES: sort
+==============================================================================
+
+NOME
+    sort - Ordena alfabeticamente as linhas de ficheiros de texto.
+
+SINOPSE
+    sort [OPCOES] FICHEIRO...
+
+DESCRICAO
+    Le cada FICHEIRO, ordena as suas linhas alfabeticamente
+    (lexicograficamente, NAO numericamente), e grava o resultado num
+    NOVO ficheiro com o sufixo '.sort'.
+
+    IMPORTANTE: Em caso de sucesso, este comando NAO produz qualquer output
+    no terminal. Isto e' propositado e exigido pelo briefing - o resultado
+    e' sempre gravado em ficheiro.
+
+    Internamente:
+      1. Le todas as linhas para um array dinamico (crescimento por
+         duplicacao de capacidade).
+      2. Ordena com qsort() da stdlib, usando strcmp() como comparador.
+      3. Escreve o array ordenado para <nome>.sort.
+
+OPCOES
+    -d      Ordenacao DECRESCENTE (Z -> A) em vez da crescente default.
+            Implementado invertendo os argumentos do strcmp no comparador.
+
+    -h      Mostra esta ajuda e termina com codigo 0.
+
+EXEMPLOS
+    sort dados.txt
+        Cria 'dados.txt.sort' com as linhas ordenadas A -> Z.
+        Nada e' impresso no terminal.
+
+    sort -d dados.txt
+        Cria 'dados.txt.sort' com as linhas ordenadas Z -> A.
+
+    sort a.txt b.txt
+        Cria 'a.txt.sort' E 'b.txt.sort', cada um com o respectivo conteudo
+        ordenado.
+
+NOTA SOBRE ORDENACAO
+    A ordenacao e' LEXICOGRAFICA, nao numerica. Isto significa que ficheiros
+    de numeros sao ordenados como strings:
+        Input: 1, 2, 10, 20, 3
+        Output: 1, 10, 2, 20, 3
+
+VALOR DE RETORNO
+    0    Sucesso (silencioso por design).
+    1    Erro a abrir ficheiro de entrada ou a criar de saida.
+
+NOTAS
+    Implementacao academica - Sistemas Operativos, IADE 2025/2026.
+    Usa getline() (POSIX 2008) para suportar linhas de qualquer tamanho.

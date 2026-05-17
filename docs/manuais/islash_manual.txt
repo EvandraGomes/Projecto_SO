@@ -1,0 +1,77 @@
+==============================================================================
+                        MANUAL DE INSTRUCOES: islash (UEsh)
+==============================================================================
+
+NOME
+    islash - Shell interpretador de comandos.
+
+SINOPSE
+    islash
+
+DESCRICAO
+    Apresenta uma prompt interactiva, le comandos do utilizador, executa-os
+    e repete o ciclo ate o utilizador escrever 'exit' ou premir Ctrl+D.
+
+    A prompt tem o formato:
+        utilizador@hostname (diretorio_actual) >
+
+    Os comandos sao divididos em duas categorias:
+
+    1. COMANDOS INTERNOS (builtins) - executados DENTRO do processo do
+       shell. Tem de ser internos porque modificam o estado do proprio
+       shell (ex.: 'cd' muda o diretorio do processo, 'exit' termina-o).
+
+    2. COMANDOS EXTERNOS - executados em processos filho via:
+           fork() + execvp() + waitpid()
+       O fork() cria um processo filho. O execvp() substitui esse processo
+       pelo programa pedido (procurado no PATH). O waitpid() faz o shell
+       esperar que o filho termine antes de mostrar nova prompt.
+
+COMANDOS INTERNOS
+    cd [DIR]        Muda o diretorio de trabalho. Sem argumentos, vai
+                    para $HOME (comportamento standard de shells).
+
+    pwd             Imprime o diretorio actual.
+
+    echo TEXTO...   Imprime o texto no ecra, separando os argumentos por
+                    espacos e terminando com newline.
+
+    sleep NUM       Pausa a execucao do shell durante NUM segundos.
+
+    exit            Termina o shell.
+
+OPCOES (do comando islash, nao dos comandos internos)
+    -h      Mostra esta ajuda e termina com codigo 0.
+
+INTERRUPCOES (Ctrl+C / Ctrl+D)
+    Ctrl+C  E' IGNORADO no shell (nao mata o processo do shell). Quando
+            um comando externo esta a correr, o sinal vai para o filho,
+            permitindo interromper apenas esse processo.
+
+    Ctrl+D  Termina o shell (interpretado como EOF na leitura da prompt).
+
+EXEMPLOS DE SESSAO
+    $ ./bin/islash
+    user@host (/home/user) > pwd
+    /home/user
+    user@host (/home/user) > cd /tmp
+    user@host (/tmp) > echo Ola mundo
+    Ola mundo
+    user@host (/tmp) > ls
+    [output do ls do sistema via PATH]
+    user@host (/tmp) > exit
+    $
+
+DETALHES TECNICOS PARA A APRESENTACAO
+    - Tokenizacao: strtok_r() divide a linha por espacos/tabs.
+    - Buffer dinamico: getline() cresce conforme necessario.
+    - Signal handling: SIGINT ignorado no shell, restaurado no filho
+      antes do exec.
+    - 127 e' o codigo de saida classico quando o exec falha.
+
+VALOR DE RETORNO
+    0    Sair com 'exit' ou Ctrl+D.
+
+NOTAS
+    Implementacao academica - Sistemas Operativos, IADE 2025/2026.
+    Versao simplificada (sem pipes, redireccoes, ou variaveis).

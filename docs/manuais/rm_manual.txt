@@ -1,0 +1,45 @@
+==============================================================================
+                        MANUAL DE INSTRUCOES: rm
+==============================================================================
+
+NOME
+    rm - Apaga ficheiros do sistema de ficheiros.
+
+SINOPSE
+    rm [OPCOES] FICHEIRO...
+
+DESCRICAO
+    Remove um ou mais ficheiros indicados. Antes de tentar apagar, verifica
+    se cada ficheiro existe usando access(F_OK).
+
+    Quando recebe varios ficheiros, processa cada um de forma independente -
+    um erro num ficheiro nao impede que os outros sejam tentados. O codigo
+    de saida sera != 0 se pelo menos um ficheiro falhar.
+
+OPCOES
+    -y      Modo interativo: para cada ficheiro a apagar, pergunta
+            confirmacao ao utilizador. Respostas aceites como SIM:
+            's', 'S', 'y', 'Y'. Qualquer outra resposta e' tratada
+            como NAO (e o ficheiro nao e' apagado).
+
+    -h      Mostra esta ajuda e termina com codigo 0.
+
+EXEMPLOS
+    rm ficheiro.txt
+        Apaga ficheiro.txt sem perguntar.
+
+    rm a.txt b.txt c.txt
+        Apaga 3 ficheiros de uma vez.
+
+    rm -y importante.txt
+        Pergunta "Apagar 'importante.txt'? (s/n):" antes de apagar.
+
+VALOR DE RETORNO
+    0    Sucesso (todos os ficheiros apagados, ou utilizador disse 'nao'
+         no modo interativo).
+    1    Erro em pelo menos um ficheiro (inexistente, sem permissoes, etc.).
+
+NOTAS
+    Implementacao academica - Sistemas Operativos, IADE 2025/2026.
+    A flag '-y' do briefing tem semantica de confirmacao individual
+    (equivalente ao '-i' do rm real do Linux).

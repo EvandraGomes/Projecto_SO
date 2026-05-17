@@ -1,0 +1,44 @@
+==============================================================================
+                        MANUAL DE INSTRUCOES: kill
+==============================================================================
+
+NOME
+    kill - Termina um processo activo enviando-lhe o sinal SIGTERM.
+
+SINOPSE
+    kill PID
+
+DESCRICAO
+    Envia o sinal SIGTERM (terminacao polida) ao processo cujo PID e'
+    indicado. O processo alvo pode ignorar o sinal, mas tipicamente termina
+    de forma limpa.
+
+    Diferente do SIGKILL (sinal 9 - terminacao forcada), o SIGTERM permite
+    ao processo libertar recursos e fazer cleanup antes de morrer.
+
+OPCOES
+    -h      Mostra esta ajuda e termina com codigo 0.
+
+VALIDACAO DO PID
+    O argumento PID deve ser composto exclusivamente por digitos.
+    Argumentos como "abc", "123x", "-5" ou "0" sao rejeitados com a
+    mensagem "PID invalido".
+
+EXEMPLOS
+    kill 12345
+        Envia SIGTERM ao processo de PID 12345.
+
+ERROS COMUNS
+    "No such process"             O PID nao existe.
+    "Operation not permitted"     Nao tens permissoes para matar esse
+                                  processo (tipicamente, processos de
+                                  outros utilizadores ou do sistema).
+    "PID invalido"                O argumento nao e' um numero positivo
+                                  valido.
+
+VALOR DE RETORNO
+    0    Sinal enviado com sucesso.
+    1    Erro (PID invalido, processo inexistente, sem permissoes).
+
+NOTAS
+    Implementacao academica - Sistemas Operativos, IADE 2025/2026.

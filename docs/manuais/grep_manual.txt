@@ -1,0 +1,69 @@
+==============================================================================
+                        MANUAL DE INSTRUCOES: grep
+==============================================================================
+
+NOME
+    grep - Procura uma string dentro de ficheiros.
+
+SINOPSE
+    grep [OPCOES] STRING FICHEIROS...
+
+DESCRICAO
+    Procura ocorrencias de STRING em cada um dos FICHEIROS indicados.
+    Por defeito, mostra as linhas que contem a string.
+
+    Internamente usa strstr() (case-sensitive) ou strncasecmp() em loop
+    manual (case-insensitive, com -i).
+
+    Quando ha multiplos ficheiros, cada linha e' prefixada com o nome do
+    ficheiro, no formato "ficheiro:conteudo" (ou "ficheiro:numero:conteudo"
+    quando combinado com -n).
+
+OPCOES
+    -c      Em vez de imprimir as linhas, mostra apenas o numero de
+            ocorrencias por ficheiro. Com multiplos ficheiros, o output
+            e' "ficheiro:contagem".
+
+    -n      Prefixa cada linha com o seu numero, separado por ':'.
+            Formato: "numero:conteudo".
+
+    -i      Ignora maiusculas e minusculas na comparacao.
+
+    -v      Inverte o resultado: mostra as linhas que NAO contem a string.
+
+    -h      Mostra esta ajuda e termina com codigo 0.
+
+COMBINACOES
+    As 4 opcoes podem ser combinadas livremente:
+        -c -i           Contar matches case-insensitive
+        -v -n           Numerar linhas que NAO contem
+        -c -v -i        Contar linhas que NAO contem (case-insensitive)
+
+EXEMPLOS
+    grep "error" log.txt
+        Mostra todas as linhas com "error" (case-sensitive).
+
+    grep -i "error" log.txt
+        Mostra linhas com "error", "ERROR", "Error", etc.
+
+    grep -n "TODO" *.c
+        Mostra ocorrencias de "TODO" em ficheiros .c com numero da linha.
+
+    grep -c -i "warning" *.log
+        Conta avisos (em qualquer caixa) em todos os ficheiros .log.
+
+    grep -v "^#" config.txt
+        Mostra todas as linhas EXCEPTO as que comecam com '#'
+        (Nota: nao suporta regex, apenas substring literal).
+
+VALOR DE RETORNO
+    0    Comando executado com sucesso.
+    1    Erro: ficheiro inexistente, faltam argumentos, etc.
+
+LIMITACOES
+    Esta implementacao NAO suporta expressoes regulares. So procura
+    substring literal. O '-' antes do padrao tambem nao e' tratado
+    como separador (nao suporta "--").
+
+NOTAS
+    Implementacao academica - Sistemas Operativos, IADE 2025/2026.

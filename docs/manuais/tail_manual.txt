@@ -1,0 +1,50 @@
+==============================================================================
+                       MANUAL DE INSTRUCOES: tail
+==============================================================================
+
+NOME
+    tail - Lista as ultimas linhas de um ficheiro de texto.
+
+SINOPSE
+    tail [OPCOES] [FICHEIRO]...
+
+DESCRICAO
+    Le um ou mais ficheiros de texto e imprime para o stdout as ultimas
+    linhas de cada um. Por defeito, mostra as ultimas 10 linhas.
+
+    Implementacao: o ficheiro e' lido duas vezes - na primeira passagem
+    contam-se as linhas totais; na segunda passagem saltam-se as primeiras
+    (total - N) e imprime-se o resto.
+
+OPCOES
+    -NUM    Onde NUM e' um inteiro positivo. Mostra as ultimas NUM linhas.
+
+    -n      Prefixa cada linha impressa com o seu numero. IMPORTANTE: o
+            numero reflecte a POSICAO REAL da linha no ficheiro, nao a
+            ordem de impressao. Por exemplo, em "tail -5" num ficheiro
+            de 20 linhas, vera 16, 17, 18, 19, 20.
+
+    -E      Marca o fim de cada linha com '$' antes do newline.
+
+    -h      Mostra esta ajuda e termina com codigo 0.
+
+EXEMPLOS
+    tail ficheiro.txt
+        Mostra as ultimas 10 linhas.
+
+    tail -5 ficheiro.txt
+        Mostra as ultimas 5 linhas.
+
+    tail -3 -n ficheiro.txt
+        Mostra as ultimas 3 linhas, com a sua posicao real no ficheiro.
+
+    tail file1.txt file2.txt
+        Mostra as ultimas 10 linhas de cada ficheiro, separados por
+        cabecalhos "==> nome <==".
+
+VALOR DE RETORNO
+    0    Sucesso.
+    1    Erro: ficheiro inexistente, opcao desconhecida, faltam argumentos.
+
+NOTAS
+    Implementacao academica - Sistemas Operativos, IADE 2025/2026.

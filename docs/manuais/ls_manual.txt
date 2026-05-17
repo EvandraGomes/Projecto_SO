@@ -1,0 +1,66 @@
+==============================================================================
+                        MANUAL DE INSTRUCOES: ls
+==============================================================================
+
+NOME
+    ls - Lista o conteudo de um diretorio.
+
+SINOPSE
+    ls [OPCOES] [CAMINHO]
+
+DESCRICAO
+    Lista os ficheiros e subdiretorios contidos no CAMINHO indicado.
+    Se CAMINHO nao for fornecido, lista o diretorio actual.
+
+    Por defeito:
+      - Mostra cada entrada numa linha separada
+      - Ordena alfabeticamente
+      - IGNORA ficheiros escondidos (que comecam por '.')
+
+    Internamente usa opendir/readdir para iterar entradas, e lstat para
+    obter metadados (tamanho, data de modificacao) sem seguir links
+    simbolicos.
+
+OPCOES
+    -l      Listagem LONGA: mostra tamanho, data de modificacao e nome
+            de cada entrada, alinhados em colunas.
+            Formato:  "<tamanho>  <YYYY-MM-DD HH:MM>  <nome>"
+
+    -on     Ordena por NOME (alfabetico). E' o default.
+
+    -os     Ordena por TAMANHO crescente (do mais pequeno para o maior).
+
+    -od     Ordena por DATA de modificacao (do mais antigo para o mais
+            recente).
+
+    -c      Listagem em COLUNAS, ordenada por colunas (column-major):
+            o output desce uma coluna inteira antes de saltar para a
+            seguinte. Largura calculada com base no nome mais comprido.
+
+    -h      Mostra esta ajuda e termina com codigo 0.
+
+COMBINACOES
+    As opcoes podem ser combinadas. Por exemplo:
+        ls -l -od pasta/         Listagem longa ordenada por data
+        ls -c -os pasta/         Colunas ordenadas por tamanho
+
+EXEMPLOS
+    ls
+        Lista o diretorio actual.
+
+    ls /tmp
+        Lista /tmp.
+
+    ls -l
+        Listagem longa do diretorio actual.
+
+    ls -c -os tests/
+        Lista em colunas, ordenado por tamanho.
+
+VALOR DE RETORNO
+    0    Sucesso (incluindo o caso de diretorio vazio).
+    1    Erro: CAMINHO nao existe, sem permissoes de leitura, etc.
+
+NOTAS
+    Implementacao academica - Sistemas Operativos, IADE 2025/2026.
+    A largura de coluna em '-c' esta fixa em 80 caracteres.
