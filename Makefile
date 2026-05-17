@@ -22,7 +22,7 @@ COMANDOS := head tail rm mv kill grep sort ls islash
 ALVOS    := $(addprefix $(BINDIR)/, $(COMANDOS))
 
 # --- Empacotamento para entrega ---
-GROUP    := G00
+GROUP    := G02
 ZIP_NAME := $(GROUP)-TrabSO.zip
 
 
