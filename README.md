@@ -1,2 +1,1 @@
-# Projecto_SO
-José
+# SO_Project
